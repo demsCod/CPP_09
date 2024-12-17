@@ -1,10 +1,13 @@
+#pragma once
 #include <vector>
-
-
-class Pmerge
+#include <deque>
+class PmergeMe
 {
-    private :
-        std::vector<int>tab;
+     
     public :
-        Pmerge(char **av);
-}
+        PmergeMe();
+        std::vector<int> sortVector(std::vector<int> &tab);
+        std::deque<int> sortDeque(std::deque<int> &tab);
+        void sort(std::vector<int> &v, std::deque<int> &d);
+        ~PmergeMe();
+};
