@@ -26,8 +26,6 @@ RPN::RPN(std::string args)
         stock.push(temp.top());         //remettre a l'endroit
         temp.pop();
     }
-    
-    
 }
 
 RPN::~RPN()
@@ -58,7 +56,7 @@ void RPN::calculate()
         {
             if(data.size() < 2)
             {
-                std::cout << "invalid rpn format" << std::endl;
+                std::cerr << "invalid rpn format" << std::endl;
                 return ;
             }
             else
@@ -72,7 +70,11 @@ void RPN::calculate()
                 else if (token == "-")
                     data.push(b - a);
                 else if (token == "/")
+                {
+                    if (a == 0)
+                        throw std::runtime_error("Division by zero");
                     data.push(b / a);
+                }
                 else
                      data.push(b * a);
             }
@@ -81,7 +83,7 @@ void RPN::calculate()
         {
             if (!isValidNumber(token))
             {
-                std::cout << "Error invalid input ---->" << token << std::endl;
+                std::cerr << "Error invalid input ---->" << token << std::endl;
                 return ;
             }
             else 
@@ -95,7 +97,7 @@ void RPN::calculate()
     }
     if (data.size() != 1)
     {
-        std::cout << "Error invalid rpn format\n";
+        std::cerr << "Error invalid rpn format\n";
         return ;
     }
     std::cout << data.top() << std::endl;
@@ -103,6 +105,13 @@ void RPN::calculate()
 
 int main (int ac, char **av)
 {
+ 
+try{
     RPN a(av[1]);
     a.calculate();
+}
+catch( std::exception& e)
+{
+    std::cerr << e.what() << std::endl ;
+}
 }
